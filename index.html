@@ -230,7 +230,7 @@
         }
 
         function closeZoom() {
-            // 點擊任何地方關閉放大鏡
+            
             document.getElementById('retro-lightbox').style.display = 'none';
         }
     </script>
@@ -344,7 +344,21 @@
     <div class="system-footer">OS_VERSION: JEAN.026.ROM</div>
 
     <script>
-        // --- 視窗拖曳核心邏輯 ---
+       document.addEventListener("DOMContentLoaded", () => {
+        const windowLinks = document.getElementById('window-links');
+        if (windowLinks) {
+          
+            const actualLeft = windowLinks.offsetLeft;
+            windowLinks.style.left = actualLeft + 'px';
+            windowLinks.style.right = 'auto';
+         
+            windowLinks.addEventListener('mousedown', function() {
+                const currentLeft = this.offsetLeft;
+                this.style.left = currentLeft + 'px';
+                this.style.right = 'auto';
+            });
+        }
+    });
         const headers = document.querySelectorAll('.window-header');
         let activeWindow = null; let isDragging = false;
         let currentX, currentY, initialX, initialY;
@@ -379,7 +393,7 @@
 
         function dragEnd() { isDragging = false; activeWindow = null; }
 
-        // --- 全自動多面板切換邏輯 ---
+      
         function openPanel(panelId) {
             closeAllPanels(); 
             const targetPanel = document.getElementById(panelId);
